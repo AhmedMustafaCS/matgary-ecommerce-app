@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:matgary/models/product_item_model.dart';
+import 'package:matgary/views/widgets/product_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -55,6 +57,38 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+                const SizedBox(height: 24.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'New Arrivals',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'See All',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                GridView.builder(
+                  itemCount:dummyProducts.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 25,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    return ProductItem(
+                      productItem: dummyProducts[index],
+                    );
+                  },
                 ),
               ],
             ),
