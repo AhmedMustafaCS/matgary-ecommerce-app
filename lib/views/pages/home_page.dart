@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:matgary/models/home_carousel_item_model.dart';
 import 'package:matgary/models/product_item_model.dart';
 import 'package:matgary/views/widgets/product_item.dart';
 
@@ -59,6 +61,35 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24.0),
+                FlutterCarousel.builder(
+                  itemCount: dummyHomeCarouselItems.length,
+                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 16.0),
+                    child: Image.network(
+                      dummyHomeCarouselItems[itemIndex].imgUrl,
+                      width: 400,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  options: FlutterCarouselOptions(
+                    height: 215,
+                    showIndicator: true,
+                    floatingIndicator: false,
+                    slideIndicator: CircularWaveSlideIndicator(
+                      slideIndicatorOptions: SlideIndicatorOptions(
+                        padding: EdgeInsets.only(
+                          top: 8.0,
+                        ),
+                        indicatorRadius: 4.0,
+                        itemSpacing: 14,
+                        currentIndicatorColor: Colors.indigo,
+                        indicatorBackgroundColor: Colors.grey.shade300,
+                      ),
+                    ),
+                    autoPlay: true,
+                  ),
+                ),
+                const SizedBox(height: 24.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -76,7 +107,7 @@ class HomePage extends StatelessWidget {
                   height: 16.0,
                 ),
                 GridView.builder(
-                  itemCount:dummyProducts.length,
+                  itemCount: dummyProducts.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
