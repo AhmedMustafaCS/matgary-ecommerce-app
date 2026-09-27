@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
                       children: [
                         const CircleAvatar(
                           radius: 25,
-                          backgroundImage: NetworkImage(
+                          backgroundImage: CachedNetworkImageProvider(
                             'https://avatars.githubusercontent.com/u/245307900?v=4',
                           ),
                         ),
@@ -65,10 +66,17 @@ class HomePage extends StatelessWidget {
                   itemCount: dummyHomeCarouselItems.length,
                   itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => Padding(
                     padding: const EdgeInsetsDirectional.only(end: 16.0),
-                    child: Image.network(
-                      dummyHomeCarouselItems[itemIndex].imgUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: dummyHomeCarouselItems[itemIndex].imgUrl,
                       width: 400,
                       fit: BoxFit.fill,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                   options: FlutterCarouselOptions(
