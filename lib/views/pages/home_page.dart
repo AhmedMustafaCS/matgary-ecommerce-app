@@ -4,6 +4,8 @@ import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:matgary/models/home_carousel_item_model.dart';
 import 'package:matgary/models/product_item_model.dart';
+import 'package:matgary/utils/app_assets.dart';
+import 'package:matgary/utils/app_colors.dart';
 import 'package:matgary/views/widgets/product_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,7 +28,7 @@ class HomePage extends StatelessWidget {
                         const CircleAvatar(
                           radius: 25,
                           backgroundImage: CachedNetworkImageProvider(
-                            'https://avatars.githubusercontent.com/u/245307900?v=4',
+                            AppAssets.userAvatar,
                           ),
                         ),
                         const SizedBox(width: 16.0),
@@ -40,7 +42,7 @@ class HomePage extends StatelessWidget {
                             Text(
                               'Let\'s go shopping!',
                               style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                                    color: Colors.grey,
+                                    color: AppColors.grey,
                                   ),
                             ),
                           ],
@@ -75,7 +77,7 @@ class HomePage extends StatelessWidget {
                       ),
                       errorWidget: (context, url, error) => Icon(
                         Icons.error,
-                        color: Colors.red,
+                        color: AppColors.red,
                       ),
                     ),
                   ),
@@ -90,8 +92,8 @@ class HomePage extends StatelessWidget {
                         ),
                         indicatorRadius: 4.0,
                         itemSpacing: 14,
-                        currentIndicatorColor: Colors.indigo,
-                        indicatorBackgroundColor: Colors.grey.shade300,
+                        currentIndicatorColor: AppColors.primary,
+                        indicatorBackgroundColor: AppColors.grey300,
                       ),
                     ),
                     autoPlay: true,

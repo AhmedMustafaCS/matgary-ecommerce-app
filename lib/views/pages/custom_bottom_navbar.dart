@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:matgary/utils/app_colors.dart';
 import 'package:matgary/views/pages/orders_page.dart';
 import 'package:matgary/views/pages/favorites_page.dart';
 import 'package:matgary/views/pages/home_page.dart';
@@ -35,7 +36,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         PersistentTabConfig(
           screen: const HomePage(),
           item: ItemConfig(
-            activeForegroundColor: Colors.indigo,
+            activeForegroundColor: AppColors.primary,
             inactiveIcon: const Icon(Iconsax.home_copy),
             icon: const Icon(
               Iconsax.home_2,
@@ -46,7 +47,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         PersistentTabConfig(
           screen: OrdersPage(),
           item: ItemConfig(
-            activeForegroundColor: Colors.indigo,
+            activeForegroundColor: AppColors.primary,
             inactiveIcon: const Icon(Iconsax.truck_fast_copy),
             icon: const Icon(
               Iconsax.truck_fast,
@@ -57,7 +58,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         PersistentTabConfig(
           screen: const FavoritesPage(),
           item: ItemConfig(
-            activeForegroundColor: Colors.indigo,
+            activeForegroundColor: AppColors.primary,
             inactiveIcon: const Icon(Iconsax.heart_copy),
             icon: const Icon(
               Iconsax.heart,
@@ -68,7 +69,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         PersistentTabConfig(
           screen: ProfilePage(),
           item: ItemConfig(
-            activeForegroundColor: Colors.indigo,
+            activeForegroundColor: AppColors.primary,
             inactiveIcon: const Icon(Iconsax.user_copy),
             icon: const Icon(Iconsax.user),
             title: 'My Profile',

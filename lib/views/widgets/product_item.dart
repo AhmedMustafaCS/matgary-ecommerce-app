@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:matgary/models/product_item_model.dart';
+import 'package:matgary/utils/app_colors.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductItemModel productItem;
@@ -17,7 +18,7 @@ class ProductItem extends StatelessWidget {
               width: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
-                color: Colors.grey.shade200,
+                color: AppColors.grey200,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -29,7 +30,7 @@ class ProductItem extends StatelessWidget {
                   ),
                   errorWidget: (context, url, error) => const Icon(
                     Icons.error,
-                    color: Colors.red,
+                    color: AppColors.red,
                   ),
                 ),
               ),
@@ -40,7 +41,7 @@ class ProductItem extends StatelessWidget {
               child: DecoratedBox(
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white54,
+                  color: AppColors.white54,
                 ),
                 child: IconButton(
                   onPressed: () {},
@@ -63,7 +64,7 @@ class ProductItem extends StatelessWidget {
         ),
         Text(
           productItem.category,
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.grey),
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(color: AppColors.grey),
         ),
         Text(
           '\$${productItem.price}',
