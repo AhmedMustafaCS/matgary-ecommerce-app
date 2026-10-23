@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:matgary/utils/app_assets.dart';
 import 'package:matgary/utils/app_colors.dart';
+import 'package:matgary/view_models/home_cubit/home_cubit.dart';
 import 'package:matgary/views/widgets/category_tab_view.dart';
 import 'package:matgary/views/widgets/home_tab_view.dart';
 
@@ -29,84 +31,91 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 25,
-                        backgroundImage: CachedNetworkImageProvider(
-                          AppAssets.userAvatar,
+    return BlocProvider(
+      create: (context) {
+        final cubit = HomeCubit();
+        cubit.getHomeData();
+        return cubit;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 25,
+                          backgroundImage: CachedNetworkImageProvider(
+                            AppAssets.userAvatar,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Hi Ahmed Mustafa',
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
-                          Text(
-                            'Let\'s go shopping!',
-                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                                  color: AppColors.grey,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Iconsax.search_normal_1_copy),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Iconsax.notification_copy),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24.0),
-              TabBar(
-                controller: _tapController,
-                unselectedLabelColor: AppColors.grey,
-                dividerHeight: 0,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorPadding: const EdgeInsets.symmetric(horizontal: 35),
-                indicatorWeight: 2.2,
-                labelColor: AppColors.black,
-                tabs: const [
-                  Tab(
-                    text: 'Home',
-                  ),
-                  Tab(
-                    text: 'Category',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24.0),
-              Expanded(
-                child: TabBarView(
-                  controller: _tapController,
-                  children: const [
-                    HomeTabView(),
-                    CategoryTabView(),
+                        const SizedBox(width: 16.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hi Ahmed Mustafa',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            Text(
+                              'Let\'s go shopping!',
+                              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                                    color: AppColors.grey,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Iconsax.search_normal_1_copy),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Iconsax.notification_copy),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 24.0),
+                TabBar(
+                  controller: _tapController,
+                  unselectedLabelColor: AppColors.grey,
+                  dividerHeight: 0,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorPadding: const EdgeInsets.symmetric(horizontal: 35),
+                  indicatorWeight: 2.2,
+                  labelColor: AppColors.black,
+                  tabs: const [
+                    Tab(
+                      text: 'Home',
+                    ),
+                    Tab(
+                      text: 'Category',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24.0),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tapController,
+                    children: const [
+                      HomeTabView(),
+                      CategoryTabView(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
