@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:matgary/utils/app_colors.dart';
+import 'package:matgary/utils/app_routes.dart';
 import 'package:matgary/view_models/home_cubit/home_cubit.dart';
 import 'package:matgary/views/widgets/product_item.dart';
 
@@ -87,8 +88,11 @@ class HomeTabView extends StatelessWidget {
                     crossAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    return ProductItem(
-                      productItem: state.products[index],
+                    return InkWell(
+                      onTap:()=>Navigator.of(context,rootNavigator: true).pushNamed(AppRoutes.productDetailsRoute,),
+                      child: ProductItem(
+                        productItem: state.products[index],
+                      ),
                     );
                   },
                 ),
