@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/utils/app_routes.dart';
+import 'package:matgary/view_models/product_details_cubit/product_details_cubit.dart';
 import 'package:matgary/views/pages/custom_bottom_navbar.dart';
 import 'package:matgary/views/pages/product_details_page.dart';
 
@@ -14,7 +16,14 @@ class AppRouter {
       case AppRoutes.productDetailsRoute:
         final productId = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => ProductDetailsPage(productId : productId),
+          builder: (_) => BlocProvider(
+            create: (context) {
+              final cubit = ProductDetailsCubit();
+              cubit.getProductDetails(productId);
+              return cubit;
+            },
+            child: ProductDetailsPage(productId: productId),
+          ),
           settings: settings,
         );
       default:
