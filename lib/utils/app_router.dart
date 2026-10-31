@@ -12,8 +12,9 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.productDetailsRoute:
+        final productId = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => ProductDetailsPage(),
+          builder: (_) => ProductDetailsPage(productId : productId),
           settings: settings,
         );
       default:
