@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/utils/app_colors.dart';
 import 'package:matgary/view_models/product_details_cubit/product_details_cubit.dart';
+import 'package:matgary/views/widgets/counter_widget.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final String productId;
@@ -13,6 +14,7 @@ class ProductDetailsPage extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       bloc: BlocProvider.of<ProductDetailsCubit>(context),
+      buildWhen: (previous, current) => current is! QuantityCounterLoaded,
       builder: (context, state) {
         if (state is ProdcutDetailsLoading) {
           return const Scaffold(
@@ -78,6 +80,7 @@ class ProductDetailsPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,6 +109,18 @@ class ProductDetailsPage extends StatelessWidget {
                                     ],
                                   ),
                                 ],
+                              ),
+                              BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+                                bloc: BlocProvider.of<ProductDetailsCubit>(context),
+                                buildWhen: (previous, current) => current is QuantityCounterLoaded || current is ProductDetailsLoaded,
+                                builder: (context, counterState) {
+                                  final currentValue = (counterState is QuantityCounterLoaded) ? counterState.value : product.quantity;
+                                  return CounterWidget(
+                                    value: currentValue,
+                                    onIncrement: () => BlocProvider.of<ProductDetailsCubit>(context).incrementCounter(product.id),
+                                    onDecrement: () => BlocProvider.of<ProductDetailsCubit>(context).decrementCounter(product.id),
+                                  );
+                                },
                               ),
                             ],
                           ),

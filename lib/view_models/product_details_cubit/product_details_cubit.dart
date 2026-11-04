@@ -16,4 +16,20 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       );
     });
   }
+
+  void incrementCounter(String productId) {
+    final selectedIndex = dummyProducts.indexWhere((item) => item.id == productId);
+    dummyProducts[selectedIndex] = dummyProducts[selectedIndex].copyWith(
+      quantity: dummyProducts[selectedIndex].quantity + 1,
+    );
+    emit(QuantityCounterLoaded(value: dummyProducts[selectedIndex].quantity));
+  }
+
+  void decrementCounter(String productId) {
+    final selectedIndex = dummyProducts.indexWhere((item) => item.id == productId);
+    dummyProducts[selectedIndex] = dummyProducts[selectedIndex].copyWith(
+      quantity: dummyProducts[selectedIndex].quantity - 1,
+    );
+    emit(QuantityCounterLoaded(value: dummyProducts[selectedIndex].quantity));
+  }
 }
