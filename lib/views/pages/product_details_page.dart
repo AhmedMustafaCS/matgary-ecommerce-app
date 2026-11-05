@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:matgary/models/product_item_model.dart';
 import 'package:matgary/utils/app_colors.dart';
 import 'package:matgary/view_models/product_details_cubit/product_details_cubit.dart';
 import 'package:matgary/views/widgets/counter_widget.dart';
@@ -78,6 +80,7 @@ class ProductDetailsPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(36.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +90,7 @@ class ProductDetailsPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     product.name,
-                                    style: Theme.of(context).textTheme.titleLarge,
+                                    style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
                                     height: 6.0,
@@ -122,6 +125,77 @@ class ProductDetailsPage extends StatelessWidget {
                                   );
                                 },
                               ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            'Size',
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            children: ProductSize.values
+                                .map(
+                                  (size) => Padding(
+                                    padding: const EdgeInsets.only(top: 6.0, right: 8.0),
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColors.grey200,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Text(
+                                            size.name,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            'Description',
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 8.0,
+                          ),
+                          Text(
+                            product.description,
+                            style: Theme.of(context).textTheme.labelMedium!.copyWith(color: AppColors.black45),
+                          ),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text.rich(
+                                TextSpan(
+                                  text: '\$',
+                                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold, color: AppColors.primary),
+                                  children: [
+                                    TextSpan(
+                                      text: product.price.toString(),
+                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ElevatedButton.icon(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: AppColors.white, fixedSize: const Size(190, 60)),
+                                label: Text(
+                                  'Add to Cart',
+                                ),
+                                icon: Icon(Iconsax.shopping_bag_copy, size: 25),
+                              )
                             ],
                           ),
                         ],

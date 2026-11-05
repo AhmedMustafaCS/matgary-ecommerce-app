@@ -1,4 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+enum ProductSize {
+  S,
+  M,
+  L,
+  XL,
+}
+
 class ProductItemModel {
   final String id;
   final String name;
@@ -9,6 +15,7 @@ class ProductItemModel {
   final String category;
   final double averageRate;
   final int quantity;
+  final ProductSize? size;
 
   ProductItemModel({
     required this.id,
@@ -21,6 +28,7 @@ class ProductItemModel {
     required this.category,
     this.averageRate = 4.5,
     this.quantity = 1,
+    this.size,
   });
 
   ProductItemModel copyWith({
@@ -33,6 +41,7 @@ class ProductItemModel {
     String? category,
     double? averageRate,
     int? quantity,
+    ProductSize? size,
   }) {
     return ProductItemModel(
       id: id ?? this.id,
@@ -44,6 +53,7 @@ class ProductItemModel {
       category: category ?? this.category,
       averageRate: averageRate ?? this.averageRate,
       quantity: quantity ?? this.quantity,
+      size: size ?? this.size,
     );
   }
 }

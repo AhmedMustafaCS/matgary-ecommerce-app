@@ -15,13 +15,13 @@ class CounterWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 33,
-              width: 33,
+              height: 25,
+              width: 25,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
@@ -30,7 +30,7 @@ class CounterWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: Icon(
                   Icons.remove,
-                  size: 21,
+                  size: 16,
                   fontWeight: FontWeight.bold,
                 ),
                 onPressed: onDecrement,
@@ -41,7 +41,7 @@ class CounterWidget extends StatelessWidget {
             ),
             Text(
               value.toString(),
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
@@ -49,8 +49,8 @@ class CounterWidget extends StatelessWidget {
               width: 16.0,
             ),
             Container(
-              height: 33,
-              width: 33,
+              height: 25,
+              width: 25,
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(30),
@@ -59,7 +59,7 @@ class CounterWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 icon: const Icon(
                   Icons.add,
-                  size: 21,
+                  size: 16,
                   fontWeight: FontWeight.bold,
                 ),
                 onPressed: onIncrement,
