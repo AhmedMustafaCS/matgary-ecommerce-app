@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/models/add_to_cart_model.dart';
 import 'package:matgary/models/product_item_model.dart';
 
 part 'product_details_state.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
+  late ProductSize selectedSize;
+  late int quantity;
   void getProductDetails(String id) {
     emit(ProdcutDetailsLoading());
     Future.delayed(const Duration(seconds: 1), () {
@@ -17,11 +20,31 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     });
   }
 
+  void selectSize(ProductSize size) {
+    selectedSize = size;
+    emit(SizeSelected(size: size));
+  }
+
+  void addToCart(String productId) {
+    emit(ProductAddingToCart());
+    final cartItem = AddToCartModel(
+      productId: productId,
+      size: selectedSize,
+      quantity: quantity,
+    );
+    dummyCart.add(cartItem);
+
+    Future.delayed(const Duration(seconds: 1), () {
+      emit(ProductAddedToCart(productId: productId));
+    });
+  }
+
   void incrementCounter(String productId) {
     final selectedIndex = dummyProducts.indexWhere((item) => item.id == productId);
     dummyProducts[selectedIndex] = dummyProducts[selectedIndex].copyWith(
       quantity: dummyProducts[selectedIndex].quantity + 1,
     );
+    quantity = dummyProducts[selectedIndex].quantity;
     emit(QuantityCounterLoaded(value: dummyProducts[selectedIndex].quantity));
   }
 
@@ -30,6 +53,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     dummyProducts[selectedIndex] = dummyProducts[selectedIndex].copyWith(
       quantity: dummyProducts[selectedIndex].quantity - 1,
     );
+    quantity = dummyProducts[selectedIndex].quantity;
     emit(QuantityCounterLoaded(value: dummyProducts[selectedIndex].quantity));
   }
 }
