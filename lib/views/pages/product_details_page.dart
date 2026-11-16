@@ -14,8 +14,9 @@ class ProductDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final cubit = BlocProvider.of<ProductDetailsCubit>(context);
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-      bloc: BlocProvider.of<ProductDetailsCubit>(context),
+      bloc: cubit,
       buildWhen: (previous, current) => current is ProdcutDetailsLoading || current is ProductDetailsLoaded || current is ProductDetailsError,
       builder: (context, state) {
         if (state is ProdcutDetailsLoading) {
@@ -114,14 +115,14 @@ class ProductDetailsPage extends StatelessWidget {
                                 ],
                               ),
                               BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-                                bloc: BlocProvider.of<ProductDetailsCubit>(context),
+                                bloc: cubit,
                                 buildWhen: (previous, current) => current is QuantityCounterLoaded || current is ProductDetailsLoaded,
                                 builder: (context, counterState) {
-                                  final currentValue = (counterState is QuantityCounterLoaded) ? counterState.value : product.quantity;
+                                  final currentValue = (counterState is QuantityCounterLoaded) ? counterState.value : 1;
                                   return CounterWidget(
                                     value: currentValue,
-                                    onIncrement: () => BlocProvider.of<ProductDetailsCubit>(context).incrementCounter(product.id),
-                                    onDecrement: () => BlocProvider.of<ProductDetailsCubit>(context).decrementCounter(product.id),
+                                    onIncrement: () => cubit.incrementCounter(product.id),
+                                    onDecrement: () => cubit.decrementCounter(product.id),
                                   );
                                 },
                               ),
@@ -135,7 +136,7 @@ class ProductDetailsPage extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-                            bloc: BlocProvider.of<ProductDetailsCubit>(context),
+                            bloc: cubit,
                             buildWhen: (previous, current) => current is SizeSelected || current is ProductDetailsLoaded,
                             builder: (context, state) {
                               return Row(
@@ -144,7 +145,7 @@ class ProductDetailsPage extends StatelessWidget {
                                       (size) => Padding(
                                         padding: const EdgeInsets.only(top: 6.0, right: 8.0),
                                         child: InkWell(
-                                          onTap: () => BlocProvider.of<ProductDetailsCubit>(context).selectSize(size),
+                                          onTap: () => cubit.selectSize(size),
                                           child: DecoratedBox(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
@@ -193,7 +194,7 @@ class ProductDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-                                bloc: BlocProvider.of<ProductDetailsCubit>(context),
+                                bloc: cubit,
                                 buildWhen: (previous, current) => current is ProductAddedToCart || current is ProductAddingToCart,
                                 builder: (context, state) {
                                   if (state is ProductAddingToCart) {
@@ -210,7 +211,17 @@ class ProductDetailsPage extends StatelessWidget {
                                     );
                                   }
                                   return ElevatedButton.icon(
-                                    onPressed: () => BlocProvider.of<ProductDetailsCubit>(context).addToCart(product.id),
+                                    onPressed: () {
+                                      if (cubit.selectedSize != null) {
+                                        cubit.addToCart(product.id);
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('Please select size'),
+                                          ),
+                                        );
+                                      }
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColors.primary,
                                       foregroundColor: AppColors.white,
