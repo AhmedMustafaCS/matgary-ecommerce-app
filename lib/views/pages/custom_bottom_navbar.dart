@@ -1,7 +1,10 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:matgary/utils/app_colors.dart';
-import 'package:matgary/views/pages/orders_page.dart';
+import 'package:matgary/view_models/cart_cubit/cart_cubit.dart';
+import 'package:matgary/view_models/home_cubit/home_cubit.dart';
+import 'package:matgary/views/pages/cart_page.dart';
 import 'package:matgary/views/pages/favorites_page.dart';
 import 'package:matgary/views/pages/home_page.dart';
 import 'package:matgary/views/pages/profile_page.dart';
@@ -34,7 +37,14 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       controller: _controller,
       tabs: [
         PersistentTabConfig(
-          screen: const HomePage(),
+          screen: BlocProvider(
+            create: (context) {
+              final cubit = HomeCubit();
+              cubit.getHomeData();
+              return cubit;
+            },
+            child: const HomePage(),
+          ),
           item: ItemConfig(
             activeForegroundColor: AppColors.primary,
             inactiveIcon: const Icon(Iconsax.home_copy),
@@ -45,14 +55,21 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           ),
         ),
         PersistentTabConfig(
-          screen: OrdersPage(),
+          screen: BlocProvider(
+            create: (context) {
+              final cubit = CartCubit();
+              cubit.getCartItems();
+              return cubit;
+            },
+            child: const CartPage(),
+          ),
           item: ItemConfig(
             activeForegroundColor: AppColors.primary,
-            inactiveIcon: const Icon(Iconsax.truck_fast_copy),
+            inactiveIcon: const Icon(Iconsax.shopping_cart_copy),
             icon: const Icon(
-              Iconsax.truck_fast,
+              Iconsax.shopping_cart,
             ),
-            title: 'My Orders',
+            title: 'Cart',
           ),
         ),
         PersistentTabConfig(
