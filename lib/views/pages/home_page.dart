@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:matgary/utils/app_assets.dart';
 import 'package:matgary/utils/app_colors.dart';
-import 'package:matgary/view_models/home_cubit/home_cubit.dart';
 import 'package:matgary/views/widgets/category_tab_view.dart';
 import 'package:matgary/views/widgets/home_tab_view.dart';
 
@@ -32,6 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

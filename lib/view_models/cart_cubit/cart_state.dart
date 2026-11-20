@@ -17,3 +17,8 @@ final class CartError extends CartState {
   final String message;
   const CartError({required this.message});
 }
+
+final class QuantityCounterLoaded extends CartState {
+  final int value;
+  QuantityCounterLoaded({required this.value});
+}
